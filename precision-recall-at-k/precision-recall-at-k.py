@@ -6,9 +6,8 @@ def precision_recall_at_k(recommended, relevant, k):
   top_k = recommended[:k]
   relevant_set = set(relevant)
 
-  hits = 0
-  for i, value in enumerate(top_k):
-    if value in relevant_set:
-      hits += 1
+  hits = sum(1 for item in top_k if item in relevant_set)
+  precision = hits / k if k else 0
+  recall = hits / len(relevant) if relevant else 0
 
-  return [hits/k, hits/len(relevant)]
+  return [precision, recall]
